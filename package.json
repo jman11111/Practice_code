@@ -1,6 +1,20 @@
 {
   "dependencies": {
     "apollo-server": "^2.3.1",
-    "graphql": "^14.0.2"
+    "apollo-server-express": "^2.3.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.4.4",
+    "morgan": "^1.9.1",
+    "validator": "^10.11.0"
   }
 }
