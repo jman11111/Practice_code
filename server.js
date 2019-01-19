@@ -1,22 +1,25 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express')
+var { buildSchema } = require('graphql');
 const app = express()
 const port = 3000
 
 app.get('/', (req, res) => res.send('Hello World!'))
 // The GraphQL schema
 const typeDefs = gql`
-type Query {
-  "A simple type for getting started!"
-  hello: String
-}
-`
-;
+  type Query {
+    "A simple type for getting started!"
+    hello: String
+    goodbye: String
+  }
+`;
 
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
     hello: () => 'world'
+  },Query: {
+    goodbye: () => 'worldo'
   }
 };
 
