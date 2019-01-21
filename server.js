@@ -9,17 +9,19 @@ app.get('/', (req, res) => res.send('Hello World!'))
 const typeDefs = gql`
   type Query {
     "A simple type for getting started!"
-    hello: String
-    goodbye: String
+    currUser: User
+  }, type User {
+    "user info"
+    id: ID
+    name: String
+    password: String
   }
 `;
 
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    hello: () => 'world'
-  },Query: {
-    goodbye: () => 'worldo'
+    currUser: () => "USERHERE"
   }
 };
 
