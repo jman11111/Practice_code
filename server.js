@@ -3,8 +3,26 @@ const express = require('express')
 var { buildSchema } = require('graphql');
 const app = express()
 const port = 3000
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+  id: ID,
+  name: String,
+  password: String
+});
+
+userSchema.statics.findByUsername = function(name, cb) {
+  return this.find({ name: new RegExp(name, 'i') }, cb);
+};
+
+var User = mongoose.model('User', userSchema);
+
+var doc = new User();
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
 // The GraphQL schema
 const typeDefs = gql`
   type Query {
@@ -34,6 +52,9 @@ const resolvers = {
   },
   Mutation: {
     signUp: (parent,args) => {
+      doc.name = args.email;
+      doc.password = args.password;
+      await doc.save();
       return {
         name: args.email,
         password: args.password
