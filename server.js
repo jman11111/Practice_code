@@ -4,22 +4,17 @@ var { buildSchema } = require('graphql');
 const app = express()
 const port = 3000
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  id: ID,
+  id: String,
   name: String,
   password: String
 });
 
-userSchema.statics.findByUsername = function(name, cb) {
-  return this.find({ name: new RegExp(name, 'i') }, cb);
-};
+var Usermodel = mongoose.model('Usermodel', userSchema);
 
-var User = mongoose.model('User', userSchema);
-
-var doc = new User();
+var doc = new Usermodel();
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -27,7 +22,8 @@ app.get('/', (req, res) => res.send('Hello World!'))
 const typeDefs = gql`
   type Query {
     "A simple type for getting started!"
-    currUser(ida: ID!): User
+    currUser(ida: ID!): User,
+    findUser(name: String!): User
   }, type User {
     "user info"
     id: ID
@@ -48,13 +44,19 @@ const resolvers = {
         name: "jack",
       
       }
+    },
+    findUser: (parent,args) => {
+      return {
+        User: Usermodel.find({name: args.name})
+      
+      }
     }
   },
   Mutation: {
     signUp: (parent,args) => {
       doc.name = args.email;
       doc.password = args.password;
-      await doc.save();
+      doc.save();
       return {
         name: args.email,
         password: args.password
