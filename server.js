@@ -7,14 +7,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  id: String,
-  name: String,
+  email: String,
   password: String
 });
 
 var Usermodel = mongoose.model('Usermodel', userSchema);
-
-var doc = new Usermodel();
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -23,11 +20,11 @@ const typeDefs = gql`
   type Query {
     "A simple type for getting started!"
     currUser(ida: ID!): User,
-    findUser(name: String!): User
+    findUser(email: String!): User
   }, type User {
     "user info"
     id: ID
-    name: String
+    email: String
     password: String
   },
   type Mutation {
@@ -41,24 +38,26 @@ const resolvers = {
     currUser: () => {
       return {
         id: "90",
-        name: "jack",
+        
       
       }
     },
-    findUser: (parent,args) => {
+    findUser: async(parent,args) => {
+      let user = Usermodel.find({ email: args.email });
+      console.log(user.email)
       return {
-        User: Usermodel.find({name: args.name})
-      
+        user
       }
     }
   },
   Mutation: {
-    signUp: (parent,args) => {
-      doc.name = args.email;
+    signUp: async(parent,args) => {
+      var doc = new Usermodel({ email: '', password: '' });
+      doc.email = args.email;
       doc.password = args.password;
       doc.save();
       return {
-        name: args.email,
+        email: args.email,
         password: args.password
       }
     }
