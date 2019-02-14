@@ -7,6 +7,9 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).catch((err)=>{
   console.log(err);
 });
+// A map of functions which return data for the schema.
+const jesolvers = require('./src/resolvers');
+
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -35,41 +38,14 @@ const typeDefs = gql`
   }
 `;
 
-// A map of functions which return data for the schema.
-const resolvers = {
-  Query: {
-    currUser: () => {
-      return {
-        id: "90",
-        
-      
-      }
-    },
-    findUser: async(parent,args) => {
-      let user = await Usermodel.findOne({ email: args.email });
-      console.log(user.email)
-      return user
-    }
-  },
-  Mutation: {
-    signUp: async(parent,args) => {
-      var doc = new Usermodel({ email: '', password: '' });
-      doc.email = args.email;
-      doc.password = args.password;
-      await doc.save();
-      console.log(doc);
-      return {
-        email: doc.email,
-        password: doc.password
-      }
-    }
-  }
-};
+ 
+  
+  
 
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
-  resolvers,
+  jesolvers,
 });
 
 server.applyMiddleware({ app }); // app is from an existing express app
