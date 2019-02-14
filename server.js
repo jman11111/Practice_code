@@ -4,6 +4,9 @@ var { buildSchema } = require('graphql');
 const app = express()
 const port = 3000
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).catch((err)=>{
+  console.log(err);
+});
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -43,11 +46,9 @@ const resolvers = {
       }
     },
     findUser: async(parent,args) => {
-      let user = Usermodel.find({ email: args.email });
+      let user = await Usermodel.findOne({ email: args.email });
       console.log(user.email)
-      return {
-        user
-      }
+      return user
     }
   },
   Mutation: {
@@ -55,10 +56,11 @@ const resolvers = {
       var doc = new Usermodel({ email: '', password: '' });
       doc.email = args.email;
       doc.password = args.password;
-      doc.save();
+      await doc.save();
+      console.log(doc);
       return {
-        email: args.email,
-        password: args.password
+        email: doc.email,
+        password: doc.password
       }
     }
   }
