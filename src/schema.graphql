@@ -1,0 +1,15 @@
+type Query {
+    "A simple type for getting started!"
+    currUser(ida: ID!): User,
+    findUser(email: String!): User
+}
+type User {
+    "user info"
+    id: ID
+    email: String
+    password: String
+}
+type Mutation {
+    signUp(email: String!,password: String!): User!
+}
+

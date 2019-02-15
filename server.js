@@ -1,6 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express')
 var { buildSchema } = require('graphql');
+var { importSchema } = require('graphql-import');
+const typeDefs = importSchema('./src/schema.graphql');
 const app = express()
 const port = 3000
 var mongoose = require('mongoose');
@@ -10,38 +12,8 @@ mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).cat
 // A map of functions which return data for the schema.
 const jesolvers = require('./src/resolvers');
 
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
-  email: String,
-  password: String
-});
-
-var Usermodel = mongoose.model('Usermodel', userSchema);
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
-// The GraphQL schema
-const typeDefs = gql`
-  type Query {
-    "A simple type for getting started!"
-    currUser(ida: ID!): User,
-    findUser(email: String!): User
-  }, type User {
-    "user info"
-    id: ID
-    email: String
-    password: String
-  },
-  type Mutation {
-    signUp(email: String!,password: String!): User!
-  }
-`;
-
+app.get('/', (req, res) => res.send('Hello World!'));
  
-  
-  
-
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
