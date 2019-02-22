@@ -9,7 +9,18 @@ mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).cat
 });
 // A map of functions which return data for the schema.
 const jesolvers = require('./src/resolvers');
-
+console.log(jesolvers);
+const resolvers = {
+  Query: {
+  findUser: async(parent,args) => {
+    let user = {
+      email: 'test'
+    }
+    console.log(user.email)
+    return user
+  }
+}
+}
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -45,7 +56,7 @@ const typeDefs = gql`
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
-  jesolvers,
+  resolvers,
 });
 
 server.applyMiddleware({ app }); // app is from an existing express app

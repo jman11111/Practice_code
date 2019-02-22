@@ -1,5 +1,3 @@
 Query = require('./user.js');
 
-module.exports = {
-    Query
-}
+module.exports = Query

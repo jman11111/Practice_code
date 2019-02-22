@@ -1,5 +1,3 @@
 Mutation = require('./user.js');
 
-module.exports = {
-    Mutation
-}
+module.exports = Mutation
