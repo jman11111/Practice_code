@@ -1,6 +1,6 @@
 var Usermodel = require('../../models/user')
 
-signUp = async(parent,args) => {
+var signUp = async(parent,args) => {
   var doc = new Usermodel({ email: '', password: '',todo: ['','']});
   doc.email = args.email;
   doc.password = args.password; 

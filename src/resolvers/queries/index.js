@@ -1,3 +1,7 @@
-Query = require('./user.js');
+currUserfunc = require('./user.js').currUser;
+findUserfunc = require('./user.js').findUser;
 
-module.exports = Query
+module.exports = {
+    currUser: currUserfunc,
+    findUser: findUserfunc
+}

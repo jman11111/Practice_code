@@ -1,3 +1,7 @@
-var Mutation = require('./user.js')
+var signUpfunc = require('./user.js')
 
-module.exports = Mutation
+
+module.exports =  {
+    signUp: signUpfunc
+}
+
