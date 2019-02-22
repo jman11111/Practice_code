@@ -8,8 +8,10 @@ type User {
     id: ID
     email: String
     password: String
+    todo: [String]
 }
 type Mutation {
-    signUp(email: String!,password: String!): User!
+    signUp(email: String!,password: String!): User,
+    addTodo(useremail_to_add_to: String!,todo: String!): String!
 }
 

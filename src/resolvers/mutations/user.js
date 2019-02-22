@@ -1,20 +1,17 @@
 var Usermodel = require('../../models/user')
 
 signUp = async(parent,args) => {
-  var doc = new Usermodel({ email: '', password: '' });
+  var doc = new Usermodel({ email: '', password: '',todo: ['','']});
   doc.email = args.email;
-  doc.password = args.password;
+  doc.password = args.password; 
   await doc.save();
   console.log(doc);
+  console.log('run');
   return {
-    email: doc.email,
-    password: doc.password
-  }
+    password: args.password,
+    email: args.email
+  } 
 }
   
 
-module.exports = {
-    Mutation: {
-        signUp
-    } 
-}
+module.exports = signUp
