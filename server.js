@@ -1,6 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express')
 var { buildSchema } = require('graphql');
+var { importSchema } = require('graphql-import');
+const typeDefs = importSchema('./src/schema.graphql');
 const app = express()
 const port = 3000
 var mongoose = require('mongoose');
@@ -9,6 +11,7 @@ mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).cat
 });
 // A map of functions which return data for the schema.
 const jesolvers = require('./src/resolvers');
+<<<<<<< HEAD
 console.log(jesolvers);
 const resolvers = {
   Query: {
@@ -49,10 +52,11 @@ const typeDefs = gql`
   }
 `;
 
- 
-  
-  
+=======
 
+app.get('/', (req, res) => res.send('Hello World!'));
+>>>>>>> 9cf377569f324dc0c028b9b353ce827454c44979
+ 
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
