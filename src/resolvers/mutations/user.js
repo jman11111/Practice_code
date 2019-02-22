@@ -14,4 +14,10 @@ signUp = async(parent,args) => {
 }
   
 
+<<<<<<< HEAD
 module.exports = signUp
+=======
+module.exports = {
+        signUp
+}
+>>>>>>> 26c1f93d03ddbffa6d97f447b01fc39597325981
