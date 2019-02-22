@@ -12,6 +12,8 @@ mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}).cat
 // A map of functions which return data for the schema.
 const jesolvers = require('./src/resolvers');
 
+jesolvers.M.
+
 app.get('/', (req, res) => res.send('Hello World!'));
  
 const server = new ApolloServer({
