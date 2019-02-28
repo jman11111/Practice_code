@@ -1,6 +1,6 @@
 var Usermodel = require('../../models/user')
 
-addTodo = async(parent,args) => {
+createTodo = async(parent,args) => {
     let user = await Usermodel.findOne({ email: args.email });
     user.todo.push(args.todo);
     await user.save();

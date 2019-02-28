@@ -1,7 +1,7 @@
-currUserfunc = require('./user.js').currUser;
 findUserfunc = require('./user.js').findUser;
+findTodofunc = require('./todo.js').todos;
 
 module.exports = {
-    currUser: currUserfunc,
+    todos: findTodofunc,
     findUser: findUserfunc
 }

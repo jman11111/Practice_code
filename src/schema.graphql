@@ -1,17 +1,28 @@
 type Query {
-    "A simple type for getting started!"
-    currUser(ida: ID!): User,
-    findUser(email: String!): User
+    findUser(email: String!): User,
+    todos: [Todo]
 },
+type Todo {
+    "todo list attached to User through ID"
+    title: String,
+    body: String,
+    authorID: String
+},
+type token{
+    value: String!
+}
 type User {
     "user info"
-    id: ID
+    uid: ID
     email: String
     password: String
-    todo: [String]
+    tokens: [String]
 },
 type Mutation {
     signUp(email: String!,password: String!): User,
-    addTodo(useremail_to_add_to: String!,todo: String!): String!
+    createTodo(useremail_to_add_to: String!,todo: String!): String!,
+    login(email: String!, password: String!): String!,
+    updateTodo(useremail_to_update: String!,todo: String!): String!,
+    deleteTodo(useremail_to_delete_from: String!,todo: String!): String!)
 }
 
