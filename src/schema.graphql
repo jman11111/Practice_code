@@ -8,9 +8,10 @@ type Todo {
     body: String,
     authorID: String
 },
-type token{
-    value: String!
-}
+type LoginPayload{
+    token: String!
+    user: User
+},
 type User {
     "user info"
     uid: ID
@@ -19,10 +20,10 @@ type User {
     tokens: [String]
 },
 type Mutation {
-    signUp(email: String!,password: String!): User,
-    createTodo(useremail_to_add_to: String!,todo: String!): String!,
-    login(email: String!, password: String!): String!,
-    updateTodo(useremail_to_update: String!,todo: String!): String!,
-    deleteTodo(useremail_to_delete_from: String!,todo: String!): String!)
+    signUp(email: String!,password: String!): LoginPayload!
+    createTodo(useremail_to_add_to: String!,todo: String!): String!
+    login(email: String!, password: String!): LoginPayload!
+    updateTodo(useremail_to_update: String!,todo: String!): String!
+    deleteTodo(useremail_to_delete_from: String!,todo: String!): String!
 }
 

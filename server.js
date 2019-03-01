@@ -3,6 +3,7 @@ const express = require('express')
 var { buildSchema } = require('graphql');
 var { importSchema } = require('graphql-import');
 const typeDefs = importSchema('./src/schema.graphql');
+require('dotenv').config();
 const app = express()
 const port = 3000
 var mongoose = require('mongoose');
