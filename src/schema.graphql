@@ -3,10 +3,16 @@ type Query {
     todos: [Todo]
 },
 type Todo {
-    "todo list attached to User through ID"
+    "todo attached to User through ID"
     title: String,
     body: String,
     authorID: String
+},
+type TodoPayload {
+    "todo payload for mutations"
+    title: String,
+    body: String,
+    _id: String
 },
 type LoginPayload{
     token: String!
@@ -21,7 +27,7 @@ type User {
 },
 type Mutation {
     signUp(email: String!,password: String!): LoginPayload!
-    createTodo(useremail_to_add_to: String!,todo: String!): String!
+    createTodo(title: String!, body: String!): TodoPayload!
     login(email: String!, password: String!): LoginPayload!
     updateTodo(useremail_to_update: String!,todo: String!): String!
     deleteTodo(useremail_to_delete_from: String!,todo: String!): String!

@@ -1,11 +1,16 @@
-var Usermodel = require('../../models/user')
+var todomodel = require('../../models/todo')
 
 createTodo = async(parent,args) => {
-    let user = await Usermodel.findOne({ email: args.email });
-    user.todo.push(args.todo);
-    await user.save();
-    console.log(user);
-    return user.todo[todo.length - 1]
-  }
+    var todoNew = new todomodel({ title: '', body: '', authorID: ''});
+    todoNew.title = args.title;
+    todoNew.body = args.body; 
+    todoNew.authorID = todoNew._id;
+    await todoNew.save();
+    return {
+      title: todoNew.title,
+      body: todoNew.body,
+      _id: todoNew.authorID
+    };
+}
   
-  module.exports = addTodo;
+module.exports = createTodo;

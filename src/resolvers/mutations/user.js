@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 
 var signUp = async(parent,args) => {
   var doc = new Usermodel({ email: '', password: '',tokens: ['','']});
-  console.log(process.env.TOKENSECRET);
   doc.email = args.email;
   doc.password = args.password; 
   var webtoken = jwt.sign({
@@ -21,23 +20,26 @@ var signUp = async(parent,args) => {
 }
 
 var login = async(parent,args) => {
-  var doc = new Usermodel({ email: '', password: '',tokens: ['','']});
-  console.log(process.env.TOKENSECRET);
-  doc.email = args.email;
-  doc.password = args.password; 
+  let user = await Usermodel.findOne({ email: args.email });
+  if (args.password != user.password){
+    throw new Error('password does not match');
+  } 
   var webtoken = jwt.sign({
-    ID: doc._id,
-    email: doc.email
+    ID: user._id,
+    email: user.email
   },process.env.TOKENSECRET).toString();
-  doc.tokens.push(webtoken);
-  await doc.save();
+  user.tokens.push(webtoken);
+  await user.save();
   return {
     token: webtoken, 
     user: {
-      uid: doc._id,
-      email: doc.email
+      uid: user._id,
+      email: user.email
     }}; 
 }
   
 
-module.exports = signUp
+module.exports = {
+  signUpex: signUp,
+  loginex: login
+} 
