@@ -1,8 +1,8 @@
 var Todomodel = require('../../models/todo');
 
 todos = async(parent,args) => {
-  
-  return todos;
+  var All_Todos = Todomodel.find();
+  return All_Todos;
 };
   
 module.exports = {
